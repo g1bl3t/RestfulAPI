@@ -17,7 +17,7 @@ public class User implements Serializable {
         users.add(new User(1, 11.5, 132.1));
         users.add(new User(2, 45.5, 66.6));
         users.add(new User(3, 77.7, 88.8));
-        users.add(new User(4, 101.1, 102.2));
+        users.add(new User(4, 10.952584, 20.165222));
     }
 
     private Integer id;
@@ -76,6 +76,7 @@ public class User implements Serializable {
 
         return p;
     }
+    
 
     public static void delete(User p){
         users.remove(p);
