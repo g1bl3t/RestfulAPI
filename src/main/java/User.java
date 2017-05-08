@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gibl3t on 3/10/17.
+ * Created by Tim Horner on 3/10/17.
+ * "User" class for storing player data
+ * Each user has a unique ID and 2 floats(latitude and longitude)
+ * indicating their most current location
+ * @author Tim Horner
+ * @version 1.0
  */
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //ArrayList that stores all Users
     private static List<User> users = new ArrayList<User>();
 
+    //dummy Users for test purposes
     static{
         users.add(new User(0, 10.3, 203.2));
         users.add(new User(1, 11.5, 132.1));
@@ -24,6 +31,12 @@ public class User implements Serializable {
     private Double latitude;
     private Double longitude;
 
+    /**
+     * Constructor for class User
+     * @param id Unique ID for user
+     * @param latitude Double for latitude
+     * @param longitude Double for longitude
+     */
     public User(Integer id, Double latitude, Double longitude){
         super();
         this.id = id;
@@ -31,8 +44,16 @@ public class User implements Serializable {
         this.longitude = longitude;
     }
 
+    /**
+     * Empty default constructor
+     */
     public User() {}
 
+
+    /**
+     * All getters and setters for User class
+     * @return
+     */
     public Integer getId(){
         return id;
     }
@@ -64,6 +85,16 @@ public class User implements Serializable {
     public static User get(final Integer id){
         return users.stream().filter((p)->p.getId().equals(id)).findFirst().get();    }
 
+
+    /**
+     * Method for storing a User in the users ArrayList
+     * Assigns User the next available ID number and stores
+     * the object in the ArrayList
+     * If ID is already assigned it will overwrite the User and
+     * act as a Put method
+     * @param p the User to be stored
+     * @return the stored User
+     */
     public static User store(User p){
         if(p.getId() == null){
             User maxIdPerson = users.stream().max((p1,p2)->Integer.compare(p1.getId(), p2.getId())).get();
@@ -76,8 +107,11 @@ public class User implements Serializable {
 
         return p;
     }
-    
 
+    /**
+     * Delete a User from the ArrayList
+     * @param p The User to be deleted
+     */
     public static void delete(User p){
         users.remove(p);
     }

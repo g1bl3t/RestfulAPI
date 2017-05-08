@@ -4,7 +4,10 @@ import com.google.gson.JsonSyntaxException;
 import spark.Spark;
 
 /**
- * Created by gibl3t on 3/10/17.
+ * Created by Tim Horner on 3/10/17.
+ * "App" class: contains methods for Rest API interface
+ * @author Tim Horner
+ * @version 1.0
  */
 public class App {
 
@@ -12,13 +15,29 @@ public class App {
 
     public static void main(String[] args){
 
+        //port(Integer.valueOf(System.getenv("PORT")));
+
+        //HTTP Get method for testing Rest Service
         Spark.get("/hello", (request, response) -> "Hello World");
 
+
+        /**
+         * HTTP Get method for retrieving a User
+         * @param id The ID number of the user you wish to retrieve
+         * @return User object in JSON format
+         */
         Spark.get("users/:id", (request, response) -> {
             Integer id = Integer.parseInt(request.params("id"));
             return GSON.toJson(User.get(id));
         });
 
+
+        /**
+         * HTTP Post method for storing a User
+         * Tries to store User, checks to make sure User doesn't
+         * already have ID and for valid JSON
+         * @return the created user in JSON format
+         */
         Spark.post("/users", (request, response) -> {
             User toStore = null;
             try{
@@ -39,6 +58,12 @@ public class App {
             }
         });
 
+
+        /**
+         * HTTP Put method for updating a User
+         * @param id The ID number of the User to edit
+         * @return the edited user in JSON format
+         */
         Spark.put("/users/:id", (request, response) -> {
             if(User.get(Integer.parseInt(request.params("id"))) == null){
                 response.status(404);
@@ -56,6 +81,12 @@ public class App {
                 return GSON.toJson(toStore);
             }
         });
+
+        /**
+         * HTTP Delete method for removing a User
+         * @param id The ID of the User to be deleted
+         * @return a String indicating success or failure
+         */
 
         Spark.delete("/user/:id", (request, response) -> {
             User user = User.get(Integer.parseInt(request.params("id"))) ;
@@ -88,4 +119,5 @@ public class App {
         });
 
     }
+    
 }
