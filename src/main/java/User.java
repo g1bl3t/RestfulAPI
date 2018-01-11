@@ -3,12 +3,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-#test line
-=======
-#test branch commit
->>>>>>> 159d26f50b6dd6fbbbb536741962f89640e82585
-
 /**
  * Created by Tim Horner on 3/10/17.
  * "User" class for storing player data
